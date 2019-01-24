@@ -25,12 +25,12 @@
 #     end
 #   end
 # end
-require "whenever/capistrano"
-lock "3.11.0"
+# require "whenever/capistrano"
+# lock "3.11.0"
 
 set :application, 'authentication'
 set :repo_url, 'git@github.com:lekkalaramana/authentication.git'
-# set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
+set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
 
 set :deploy_to, '/var/www/authentication'
 set :scm, :git
@@ -39,7 +39,8 @@ set :keep_releases, 5
 set :format, :pretty
 set :log_level, :debug
 set :pty, true
-
+# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+# set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 set :stages, %w(production development)
 set :default_stage, "development"
@@ -66,7 +67,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-    #execute "chown -R www-data:www-data /var/www/cleartripHotels"
+    execute "chmod u+w  /var/www/authentication"
     # execute "ln -s #{shared_path}/sitemaps/* #{release_path}/public/hotels"
     execute "sudo service apache2 restart"
         # within release_path do
