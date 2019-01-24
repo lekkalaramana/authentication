@@ -1,6 +1,6 @@
 
 
-server '54.169.120.18',
+server '13.228.79.96',
   user: 'ubuntu',
   roles: %w{app web app},
   ssh_options: {
@@ -8,7 +8,7 @@ server '54.169.120.18',
   }																																	
 
 set :stage, :production
-set :branch, :testin
+set :branch, :master
 set :ssh_options, {:forward_agent => true}
 
 # Setting RAILS_ENV environment variable on server
