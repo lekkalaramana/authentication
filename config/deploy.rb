@@ -25,10 +25,12 @@
 #     end
 #   end
 # end
+require "whenever/capistrano"
+lock "3.11.0"
 
 set :application, 'authentication'
-set :repo_url, 'https://github.com/lekkalaramana/authentication.git'
-set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
+set :repo_url, 'git@github.com:lekkalaramana/authentication.git'
+# set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
 
 set :deploy_to, '/var/www/authentication'
 set :scm, :git
@@ -37,6 +39,7 @@ set :keep_releases, 5
 set :format, :pretty
 set :log_level, :debug
 set :pty, true
+
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 set :stages, %w(production development)
 set :default_stage, "development"
